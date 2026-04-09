@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Mail, Phone } from 'lucide-react';
 import characterImg from './character.png';
+import resumePdfFile from './resume.pdf';
 
 function Navbar({ onOpenResume }) {
   return (
@@ -23,7 +24,7 @@ function Navbar({ onOpenResume }) {
 }
 
 function ResumeModal({ isOpen, onClose }) {
-  const resumePdf = `${process.env.PUBLIC_URL}/resume.pdf`;
+  const resumePdf = resumePdfFile;
 
   if (!isOpen) {
     return null;
