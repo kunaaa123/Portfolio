@@ -38,33 +38,6 @@ h2 {
   padding: 2rem;
 }
 
-@media (max-width: 1024px) {
-  .App {
-    padding: 1.4rem;
-  }
-
-  .hero {
-    min-height: 70vh;
-  }
-
-  .hero-title {
-    font-size: clamp(2.8rem, 11vw, 6.8rem);
-    letter-spacing: 3px;
-  }
-
-  .hero-subtitle {
-    font-size: clamp(1rem, 3.2vw, 2.1rem);
-  }
-
-  .project-grid {
-    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-  }
-
-  .contact-container {
-    gap: 2rem;
-  }
-}
-
 /* Navbar */
 .navbar {
   display: flex;
@@ -263,13 +236,20 @@ h2 {
 
 .hero-character {
   position: absolute;
-  right: clamp(8px, 9vw, 108px);
-  bottom: clamp(-28px, -2.2vw, -12px);
-  width: clamp(98px, 18vw, 196px);
+  left: 75%;
+  bottom: -26px;
+  width: 356px;
   height: auto;
-  transform: rotate(3deg);
+  transform: translateX(-50%) rotate(3deg); /* หักล้างความเอียงของแถบ */
   z-index: 20;
-  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  .hero-character {
+    left: 76%;
+    width: 118px;
+    bottom: -18px;
+  }
 }
 
 /* About Me */
@@ -496,53 +476,6 @@ h2 {
 }
 
 @media (max-width: 768px) {
-  .App {
-    padding: 1rem;
-  }
-
-  h2 {
-    font-size: clamp(2rem, 10vw, 3rem);
-  }
-
-  .navbar {
-    justify-content: center;
-  }
-
-  .nav-links {
-    width: min(100%, 680px);
-    justify-content: center;
-    flex-wrap: wrap;
-    row-gap: 0.6rem;
-    column-gap: 1rem;
-    border-radius: 18px;
-    padding: 0.7rem 0.9rem;
-  }
-
-  .nav-links a,
-  .resume-btn {
-    font-size: 0.82rem;
-  }
-
-  .hero {
-    min-height: 60vh;
-  }
-
-  .hero-title {
-    line-height: 1.05;
-    letter-spacing: 2px;
-  }
-
-  .hero-subtitle-container {
-    margin-top: -1.2rem;
-    width: 132vw;
-  }
-
-  .hero-character {
-    width: clamp(92px, 26vw, 132px);
-    right: 6px;
-    bottom: -14px;
-  }
-
   .about-me {
     margin-top: 2.2rem;
     padding: 1.2rem;
@@ -557,73 +490,11 @@ h2 {
     grid-template-columns: 1fr;
   }
 
-  .projects,
-  .tech-stack,
-  .contact {
-    padding: 3.2rem 0;
-  }
-
-  .project-grid {
-    grid-template-columns: 1fr;
-    gap: 1.2rem;
-  }
-
-  .project-image-placeholder {
-    height: 180px;
-  }
-
-  .resume-modal-overlay {
-    padding: 0;
-  }
-
-  .resume-modal {
-    width: 100vw;
-    height: 100vh;
-    border-radius: 0;
-    border: none;
-    padding: 0.85rem;
-  }
-
-  .resume-doc-frame {
-    width: 100%;
-  }
-
   .contact-container {
     grid-template-columns: 1fr;
   }
-
-  .contact-info {
-    gap: 1.2rem;
-  }
-}
-
-@media (max-width: 560px) {
   .nav-links {
-    gap: 0.55rem;
-    padding: 0.62rem 0.6rem;
-  }
-
-  .nav-links a,
-  .resume-btn {
-    font-size: 0.74rem;
-  }
-
-  .hero-title {
-    font-size: clamp(2.3rem, 13vw, 4rem);
-  }
-
-  .hero-subtitle {
-    font-size: clamp(0.9rem, 4.8vw, 1.2rem);
-    letter-spacing: 1px;
-  }
-
-  .hero-character {
-    width: 92px;
-    right: 2px;
-  }
-
-  .about-card-number {
-    font-size: 1.6rem;
+    display: none; /* In real app, add hamburger menu */
   }
 }
 
