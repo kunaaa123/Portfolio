@@ -19,6 +19,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 h1, h2, h3 {
@@ -164,7 +165,7 @@ h2 {
   min-height: 80vh;
   text-align: center;
   position: relative;
-  overflow-x: hidden;
+  overflow: visible;
 }
 
 .hero-title {
@@ -219,6 +220,7 @@ h2 {
   display: flex;
   justify-content: center;
   position: relative;
+  overflow: visible;
 }
 
 .hero-subtitle {
@@ -236,19 +238,64 @@ h2 {
 
 .hero-character {
   position: absolute;
-  left: 75%;
-  bottom: -26px;
-  width: 356px;
+  left: calc(50% + min(420px, 34vw));
+  bottom: -18px;
+  width: 168px;
   height: auto;
   transform: translateX(-50%) rotate(3deg); /* หักล้างความเอียงของแถบ */
   z-index: 20;
+  pointer-events: none;
 }
 
 @media (max-width: 1024px) {
+  .App {
+    padding: 1.25rem;
+  }
+
+  .navbar {
+    justify-content: center;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.5rem;
+    border-radius: 20px;
+  }
+
+  .hero {
+    min-height: 66vh;
+  }
+
+  .hero-title {
+    font-size: clamp(2.6rem, 11vw, 5.6rem);
+    letter-spacing: 2px;
+    line-height: 1.05;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 3.2vw, 1.8rem);
+    line-height: 1.12;
+    padding: 0 0.8rem;
+  }
+
+  .hero-subtitle-container {
+    width: 128vw;
+    margin-top: -1rem;
+  }
+
   .hero-character {
-    left: 76%;
-    width: 118px;
-    bottom: -18px;
+    left: calc(50% + min(250px, 40vw));
+    width: 120px;
+    bottom: -12px;
+  }
+
+  .project-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+
+  .contact-container {
+    gap: 2rem;
   }
 }
 
@@ -476,6 +523,51 @@ h2 {
 }
 
 @media (max-width: 768px) {
+  .App {
+    padding: 0.85rem;
+  }
+
+  h2 {
+    font-size: clamp(2rem, 9vw, 2.8rem);
+  }
+
+  .nav-links {
+    width: 100%;
+    gap: 0.7rem;
+    padding: 0.65rem 0.75rem;
+  }
+
+  .nav-links a,
+  .resume-btn {
+    font-size: 0.8rem;
+  }
+
+  .hero {
+    min-height: 54vh;
+  }
+
+  .hero-title {
+    font-size: clamp(2.2rem, 10.4vw, 3.5rem);
+    letter-spacing: 1px;
+  }
+
+  .hero-subtitle-container {
+    width: 136vw;
+    margin-top: -0.6rem;
+    padding: 0.7rem 0;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.9rem, 4.5vw, 1.2rem);
+    white-space: normal;
+  }
+
+  .hero-character {
+    left: calc(50% + min(165px, 43vw));
+    width: 96px;
+    bottom: -8px;
+  }
+
   .about-me {
     margin-top: 2.2rem;
     padding: 1.2rem;
@@ -490,11 +582,68 @@ h2 {
     grid-template-columns: 1fr;
   }
 
+  .projects,
+  .tech-stack,
+  .contact {
+    padding: 3.2rem 0;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+
+  .project-image-placeholder {
+    height: 180px;
+  }
+
+  .resume-modal-overlay {
+    padding: 0;
+  }
+
+  .resume-modal {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    border: none;
+    padding: 0.8rem;
+  }
+
+  .resume-modal-title {
+    margin-right: 2.6rem;
+  }
+
+  .resume-doc-frame {
+    width: 100%;
+  }
+
   .contact-container {
     grid-template-columns: 1fr;
   }
+
+  .contact-info {
+    gap: 1.2rem;
+  }
+}
+
+@media (max-width: 430px) {
   .nav-links {
-    display: none; /* In real app, add hamburger menu */
+    gap: 0.45rem;
+    padding: 0.55rem;
+  }
+
+  .nav-links a,
+  .resume-btn {
+    font-size: 0.72rem;
+  }
+
+  .hero-title {
+    font-size: clamp(1.9rem, 10.6vw, 2.8rem);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(0.82rem, 4.2vw, 1rem);
+    letter-spacing: 0.5px;
   }
 }
 
