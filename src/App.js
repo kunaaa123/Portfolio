@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Mail, Phone } from 'lucide-react';
 import characterImg from './character.png';
 
-function Navbar() {
+function Navbar({ onOpenResume }) {
   return (
     <nav className="navbar">
       <ul className="nav-links">
@@ -12,9 +12,42 @@ function Navbar() {
         <li><a href="#projects">Projects</a></li>
         <li><a href="#tech-stack">Tech Stack</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="#resume" className="resume-btn">View Resume</a></li>
+        <li>
+          <button type="button" className="resume-btn" onClick={onOpenResume}>
+            View Resume
+          </button>
+        </li>
       </ul>
     </nav>
+  );
+}
+
+function ResumeModal({ isOpen, onClose }) {
+  const resumePdf = `${process.env.PUBLIC_URL}/resume.pdf`;
+
+  if (!isOpen) {
+    return null;
+  }
+
+  return (
+    <div className="resume-modal-overlay" onClick={onClose} role="presentation">
+      <div className="resume-modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label="Resume document">
+        <button type="button" className="resume-close-btn" onClick={onClose} aria-label="Close resume">
+          x
+        </button>
+        <h3 className="resume-modal-title">Resume</h3>
+        <object data={resumePdf} type="application/pdf" className="resume-doc-frame" aria-label="Resume PDF">
+          <div className="resume-missing">
+            <p>ไม่สามารถแสดงตัวอย่าง PDF ได้ในเบราว์เซอร์นี้</p>
+            <p>
+              กรุณาเปิดไฟล์โดยตรงที่{' '}
+              <a href={resumePdf} target="_blank" rel="noreferrer">resume.pdf</a>
+            </p>
+            <p>และตรวจสอบว่าไฟล์อยู่ที่ public/resume.pdf</p>
+          </div>
+        </object>
+      </div>
+    </div>
   );
 }
 
@@ -176,14 +209,28 @@ function Contact() {
 }
 
 function App() {
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
+
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    if (isResumeOpen) {
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [isResumeOpen]);
+
   return (
     <div className="App">
-      <Navbar />
+      <Navbar onOpenResume={() => setIsResumeOpen(true)} />
       <Hero />
       <AboutMe />
       <Projects />
       <TechStack />
       <Contact />
+      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
     </div>
   );
 }
