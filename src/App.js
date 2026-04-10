@@ -96,36 +96,92 @@ I like turning complex problems into simple and intuitive user experiences, supp
 }
 
 function TechStack() {
+  const techGroups = [
+    {
+      title: 'Backend',
+      tone: 'tone-backend',
+      items: [
+        { name: 'Go', logo: 'https://cdn.simpleicons.org/go/00ADD8' },
+        { name: 'Node.js', logo: 'https://cdn.simpleicons.org/nodedotjs/5FA04E' },
+        { name: 'PHP', logo: 'https://cdn.simpleicons.org/php/777BB4' },
+        { name: 'gRPC', logo: 'https://cdn.simpleicons.org/googlecloud/4285F4' },
+        { name: 'Protocol Buffers', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg' },
+        { name: 'REST API' },
+        { name: 'Microservices' },
+        { name: 'JWT Auth' },
+        { name: 'System Design' },
+      ],
+    },
+    {
+      title: 'Frontend & Mobile',
+      tone: 'tone-frontend',
+      items: [
+        { name: 'React', logo: 'https://cdn.simpleicons.org/react/61DAFB' },
+        { name: 'HTML5', logo: 'https://cdn.simpleicons.org/html5/E34F26' },
+        { name: 'JavaScript', logo: 'https://cdn.simpleicons.org/javascript/F7DF1E' },
+        { name: 'Tailwind CSS', logo: 'https://cdn.simpleicons.org/tailwindcss/06B6D4' },
+        { name: 'Bootstrap', logo: 'https://cdn.simpleicons.org/bootstrap/7952B3' },
+        { name: 'Responsive UI' },
+        { name: 'Flutter', logo: 'https://cdn.simpleicons.org/flutter/02569B' },
+        { name: 'React Native', logo: 'https://cdn.simpleicons.org/react/61DAFB' },
+      ],
+    },
+    {
+      title: 'Data & Search',
+      tone: 'tone-data',
+      items: [
+        { name: 'Elasticsearch', logo: 'https://cdn.simpleicons.org/elasticsearch/005571' },
+        { name: 'MySQL', logo: 'https://cdn.simpleicons.org/mysql/4479A1' },
+        { name: 'MongoDB', logo: 'https://cdn.simpleicons.org/mongodb/47A248' },
+        { name: 'PostgreSQL', logo: 'https://cdn.simpleicons.org/postgresql/4169E1' },
+        { name: 'Index Optimization' },
+        { name: 'Query Tuning' },
+      ],
+    },
+    {
+      title: 'Dev Tools',
+      tone: 'tone-tools',
+      items: [
+        { name: 'Git', logo: 'https://cdn.simpleicons.org/git/F05032' },
+        { name: 'GitHub', logo: 'https://cdn.simpleicons.org/github/FFFFFF' },
+        { name: 'VS Code', logo: 'https://cdn.jsdelivr.net/npm/simple-icons/icons/visualstudiocode.svg' },
+        { name: 'DBeaver', logo: 'https://cdn.simpleicons.org/dbeaver/372923' },
+        { name: 'Docker', logo: 'https://cdn.simpleicons.org/docker/2496ED' },
+        { name: 'Postman', logo: 'https://cdn.simpleicons.org/postman/FF6C37' },
+        { name: 'CI/CD' },
+      ],
+    },
+  ];
+
   return (
     <section className="tech-stack" id="tech-stack">
       <h2>TECH STACK</h2>
-      <div className="tech-icons">
-        <div className="tech-item">
-          <div className="tech-icon go">
-            <img src="https://go.dev/blog/go-brand/Go-Logo/PNG/Go-Logo_Blue.png" alt="Go" width="50" style={{ filter: 'brightness(0) invert(1)' }} />
-          </div>
-          <span>Go</span>
-        </div>
-        <div className="tech-item">
-          <div className="tech-icon react">
-            <svg viewBox="0 0 118 103" width="50" height="50" xmlns="http://www.w3.org/2000/svg">
-              <path fill="#61dafb" d="M59 72.8c-8 0-14.5-6.5-14.5-14.6S51 43.6 59 43.6 73.6 50 73.6 58.2 67 72.8 59 72.8zm-1.8-31c-22 .3-40 6.6-40 18s18 17.6 40 18c21.8-.2 39.8-6.5 40-18s-18-17.7-40-18zm0-18.7c-31 0-56 12.3-56 27.5s25 27.4 56 27.4 56-12.3 56-27.4-25-27.5-56-27.5z"/>
-            </svg>
-          </div>
-          <span>React</span>
-        </div>
-        <div className="tech-item">
-          <div className="tech-icon flutter">
-            <img src="https://storage.googleapis.com/cms-storage-bucket/4fd5520fe28ebf839174.svg" alt="Flutter" width="50" />
-          </div>
-          <span>Flutter</span>
-        </div>
-        <div className="tech-item">
-          <div className="tech-icon elastic">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Elasticsearch_logo.svg" alt="Elasticsearch" width="40" />
-          </div>
-          <span>Elasticsearch</span>
-        </div>
+      <p className="tech-stack-intro">
+        Core tools and technologies I use to build reliable full-stack applications.
+      </p>
+      <div className="tech-grid">
+        {techGroups.map((group) => (
+          <article key={group.title} className={`tech-card ${group.tone}`}>
+            <div className="tech-head">
+              <p className="tech-label">{group.title}</p>
+            </div>
+            <div className="tech-list">
+              {group.items.map((item) => (
+                <span key={item.name} className="tech-pill">
+                  {item.logo ? (
+                    <img src={item.logo} alt={`${item.name} logo`} className="tech-pill-logo" />
+                  ) : (
+                    <span className="tech-pill-dot" aria-hidden="true"></span>
+                  )}
+                  {item.name}
+                </span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+      <div className="tech-footnote">
+        Always learning and improving based on real project requirements.
       </div>
     </section>
   );
@@ -134,56 +190,144 @@ function TechStack() {
 function Projects() {
   const projects = [
     {
-      title: 'TAGTHAI Platform - Elasticsearch Implementation',
-      description: 'Optimized tourism data search efficiency by 40% with Elasticsearch integration',
-      tags: ['#Golang', '#Elasticsearch'],
+      title: 'Elasticsearch',
+      description: 'Search-focused backend project with indexing and query workflow.',
+      tags: ['#Search', '#Elasticsearch', '#Backend'],
+      link: 'https://github.com/kunaaa123/Elasticsearch',
     },
     {
-      title: 'University Project - React Native Mobile App',
-      description: 'Built a cross-platform app for local business finder, integrating maps and reviews',
-      tags: ['#Elasticsearch', '#Microservices', '#React'],
-    }
+      title: 'SendGrid Webhook',
+      description: 'Webhook integration project for email event processing and tracking.',
+      tags: ['#Webhook', '#SendGrid', '#API'],
+      link: 'https://github.com/kunaaa123/SendGrid_webhook',
+    },
+    {
+      title: 'AI Smart Event Assistant',
+      description: 'AI assistant workflow for event planning and productivity automation.',
+      tags: ['#AI', '#Assistant', '#Automation'],
+      link: 'https://github.com/kunaaa123/AI_Smart_Event_Assistant',
+    },
+    {
+      title: 'Automation MCP',
+      description: 'MCP-based automation tools for command and workflow integration.',
+      tags: ['#MCP', '#Automation', '#Tooling'],
+      link: 'https://github.com/kunaaa123/automation-mcp',
+    },
+    {
+      title: 'BCFL',
+      description: 'Production-oriented repository focused on backend and service logic.',
+      tags: ['#Backend', '#Service', '#Project'],
+      link: 'https://github.com/kunaaa123/BCFL',
+    },
   ];
+
+  const splitIndex = Math.ceil(projects.length / 2);
+  const topRow = projects.slice(0, splitIndex);
+  const bottomRow = projects.slice(splitIndex);
+
+  const renderRow = (row, rowClass) => {
+    // Ensure each marquee row has enough cards so looping feels continuous.
+    const normalizedRow = [...row];
+    while (normalizedRow.length > 0 && normalizedRow.length < 4) {
+      normalizedRow.push(...row);
+    }
+    const visibleRow = normalizedRow.slice(0, Math.max(4, row.length));
+    const loopedRow = [...visibleRow, ...visibleRow];
+
+    return (
+      <div className={`project-row ${rowClass}`}>
+        <div className="project-track">
+          {loopedRow.map((project, idx) => (
+            <article className="project-card marquee-card" key={`${rowClass}-${idx}`}>
+              <div className={`project-image-placeholder image-style-${(idx % 4) + 1}`}></div>
+              <div className="project-tags">
+                {project.tags.map((tag, tIdx) => (
+                  <span key={`${rowClass}-${idx}-${tIdx}`} className="tag">{tag}</span>
+                ))}
+              </div>
+              <h3>{project.title}</h3>
+              <p>{project.description}</p>
+              <a href={project.link} target="_blank" rel="noreferrer" className="project-link">View Repo</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <section className="projects" id="projects">
       <h2>FEATURED PROJECTS</h2>
-      <div className="project-grid">
-        {projects.map((project, idx) => (
-          <div className="project-card" key={idx}>
-            <div className="project-image-placeholder"></div>
-            <div className="project-tags">
-              {project.tags.map((tag, tIdx) => (
-                <span key={tIdx} className={`tag tag-${tag.replace('#', '').toLowerCase()}`}>{tag}</span>
-              ))}
-            </div>
-            <h3>{project.title}</h3>
-            <p>{project.description}</p>
-          </div>
-        ))}
+      <div className="projects-stage">
+        {renderRow(topRow, 'row-left')}
+        {renderRow(bottomRow, 'row-right')}
       </div>
     </section>
   );
 }
 
 function Contact() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const subject = encodeURIComponent(`Portfolio Contact from ${formData.name || 'Visitor'}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    );
+    window.location.href = `mailto:Singha20032546@gmail.com?subject=${subject}&body=${body}`;
+  };
+
   return (
     <section className="contact" id="contact">
       <h2>LET'S BUILD SOMETHING</h2>
       <div className="contact-container">
-        <form className="contact-form">
-          <input type="text" placeholder="Name" />
-          <input type="email" placeholder="Email" />
-          <textarea placeholder="Message" rows="4"></textarea>
+        <form className="contact-form" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <textarea
+            name="message"
+            placeholder="Message"
+            rows="4"
+            value={formData.message}
+            onChange={handleChange}
+            required
+          ></textarea>
+          <button type="submit" className="contact-submit-btn">Send Message</button>
+          <p className="contact-note">When you click send, your email app will open and send to Singha20032546@gmail.com.</p>
         </form>
         <div className="contact-info">
           <div className="info-item">
             <Mail size={20} className="info-icon purple" />
-            <span>Email: Singha...&#64;gmail.com</span>
+            <a href="mailto:Singha20032546@gmail.com">Singha20032546@gmail.com</a>
           </div>
           <div className="info-item">
             <Phone size={20} className="info-icon purple" />
-            <span>Phone: 062-215-7506</span>
+            <a href="tel:0622157506">062-215-7506</a>
           </div>
           <div className="info-item">
             <svg
@@ -201,7 +345,7 @@ function Contact() {
               <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
               <path d="M9 18c-4.51 2-5-2-7-2" />
             </svg>
-            <span>GitHub: kunaaa123</span>
+            <a href="https://github.com/kunaaa123" target="_blank" rel="noreferrer">github.com/kunaaa123</a>
           </div>
         </div>
       </div>
