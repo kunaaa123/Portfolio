@@ -118,6 +118,11 @@ h2 {
   backdrop-filter: blur(10px);
 }
 
+.nav-links li {
+  display: flex;
+  align-items: center;
+}
+
 .nav-links a {
   color: var(--text-secondary);
   text-decoration: none;
@@ -142,6 +147,33 @@ h2 {
 
 .resume-btn:hover {
   background-color: rgba(0, 255, 136, 0.1);
+}
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.lang-switch-btn {
+  border: none;
+  background: transparent;
+  color: #b7c3d4;
+  border-radius: 999px;
+  padding: 0.28rem 0.55rem;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+}
+
+.lang-switch-btn.active {
+  color: #e9f3ff;
+  background: rgba(0, 229, 255, 0.2);
 }
 
 .resume-modal-overlay {
@@ -718,6 +750,7 @@ h2 {
   line-height: 1.5;
   margin-bottom: 0;
   flex: 1;
+  overflow-wrap: anywhere;
 }
 
 .project-link {
@@ -1075,6 +1108,7 @@ h2 {
 .info-item a {
   color: #d4deec;
   text-decoration: none;
+  overflow-wrap: anywhere;
 }
 
 .info-item a:hover {
@@ -1112,10 +1146,13 @@ h2 {
     width: 100%;
     gap: 0.7rem;
     padding: 0.65rem 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .nav-links a,
-  .resume-btn {
+  .resume-btn,
+  .lang-switch-btn {
     font-size: 0.8rem;
   }
 
@@ -1256,6 +1293,83 @@ h2 {
   .contact-info {
     gap: 1.2rem;
   }
+
+  .info-item {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .App {
+    padding: 0.65rem;
+  }
+
+  .navbar {
+    padding: 0.65rem 0;
+  }
+
+  .nav-links {
+    border-radius: 14px;
+    gap: 0.42rem;
+    padding: 0.52rem;
+  }
+
+  .nav-links a,
+  .resume-btn,
+  .lang-switch-btn {
+    font-size: 0.73rem;
+  }
+
+  .resume-btn {
+    padding: 0.4rem 0.7rem;
+  }
+
+  .lang-switch {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero-subtitle-container {
+    width: 146vw;
+  }
+
+  .about-me h2 {
+    line-height: 1.08;
+  }
+
+  .about-card {
+    padding: 0.95rem;
+  }
+
+  .marquee-card {
+    width: min(88vw, 305px);
+  }
+
+  .project-card h3 {
+    font-size: 1rem;
+  }
+
+  .project-card p {
+    font-size: 0.85rem;
+  }
+
+  .project-modal {
+    width: min(98vw, 620px);
+    padding: 1.18rem 0.7rem 0.72rem;
+  }
+
+  .project-modal-title {
+    font-size: 1.05rem;
+  }
+
+  .project-stack-chip {
+    font-size: 0.62rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    padding: 0.95rem;
+  }
 }
 
 @keyframes projectMoveLeft {
@@ -1292,7 +1406,8 @@ h2 {
   }
 
   .nav-links a,
-  .resume-btn {
+  .resume-btn,
+  .lang-switch-btn {
     font-size: 0.72rem;
   }
 

@@ -4,18 +4,169 @@ import { Mail, Phone } from 'lucide-react';
 import characterImg from './character.png';
 import resumePdfFile from './resume.pdf';
 
-function Navbar({ onOpenResume }) {
+const translations = {
+  en: {
+    nav: {
+      home: 'Home',
+      about: 'About',
+      projects: 'Projects',
+      tech: 'Tech Stack',
+      contact: 'Contact',
+      resume: 'View Resume',
+      langLabel: 'Language',
+    },
+    resume: {
+      title: 'Resume',
+      closeLabel: 'Close resume',
+      unsupportedLine1: 'Cannot preview PDF in this browser.',
+      unsupportedLine2: 'Please open the file directly at',
+      unsupportedLine3: 'and check that the file is in public/resume.pdf',
+    },
+    hero: {
+      role1: 'FULL-STACK DEVELOPER',
+      role2: 'BACKEND SPECIALIST',
+    },
+    about: {
+      label: 'ABOUT ME',
+      title: 'BUILDING FAST, CLEAN, AND SCALABLE PRODUCTS',
+      text: 'I am a Full-Stack Developer with a strong focus on backend development. I enjoy designing scalable systems, building efficient APIs, and delivering products that work well in real-world scenarios. I like turning complex problems into simple and intuitive user experiences, supported by clean and reliable engineering behind the scenes.',
+      highlightFresh: 'Graduate Ready to Grow',
+      highlightImprove: 'System Performance Improvement',
+      highlightProjects: 'Production Projects',
+    },
+    tech: {
+      title: 'TECH STACK',
+      intro: 'Core tools and technologies I use to build reliable full-stack applications.',
+      groupBackend: 'Backend',
+      groupFrontend: 'Frontend & Mobile',
+      groupData: 'Data & Search',
+      groupTools: 'Dev Tools',
+      footnote: 'Always learning and improving based on real project requirements.',
+    },
+    projects: {
+      title: 'FEATURED PROJECTS',
+      showcaseKicker: 'Project Showcase',
+      techStack: 'Tech Stack',
+      viewRepo: 'View Repo',
+      openRepository: 'Open Repository',
+      closeDetails: 'Close project details',
+      viewImage: 'View image',
+      descElasticsearch: 'Search-focused backend project with indexing and query workflow.',
+      descSendGrid: 'Webhook integration project for email event processing and tracking.',
+      descAiEvent: 'AI assistant workflow for event planning and productivity automation.',
+      descMcp: 'MCP-based automation tools for command and workflow integration.',
+      descRedoc: 'Interactive API documentation portal with OpenAPI-based service docs and responsive navigation.',
+      descBotLark: 'Lark bot project for GitHub integration, event handling, and workflow automation.',
+    },
+    contact: {
+      title: "LET'S BUILD SOMETHING",
+      namePlaceholder: 'Name',
+      emailPlaceholder: 'Email',
+      messagePlaceholder: 'Message',
+      send: 'Send Message',
+      sending: 'Sending...',
+      note: 'This form sends directly to {email}. You can reply back to the sender email they entered.',
+      success: 'Message sent successfully. I will get your email notification shortly.',
+      error: 'Unable to send right now. Please try again or email me directly.',
+      subjectVisitor: 'Visitor',
+    },
+  },
+  th: {
+    nav: {
+      home: 'หน้าแรก',
+      about: 'เกี่ยวกับฉัน',
+      projects: 'โปรเจกต์',
+      tech: 'ทักษะเทคโนโลยี',
+      contact: 'ติดต่อ',
+      resume: 'ดูเรซูเม่',
+      langLabel: 'ภาษา',
+    },
+    resume: {
+      title: 'เรซูเม่',
+      closeLabel: 'ปิดเรซูเม่',
+      unsupportedLine1: 'ไม่สามารถแสดงตัวอย่าง PDF ได้ในเบราว์เซอร์นี้',
+      unsupportedLine2: 'กรุณาเปิดไฟล์โดยตรงที่',
+      unsupportedLine3: 'และตรวจสอบว่าไฟล์อยู่ที่ public/resume.pdf',
+    },
+    hero: {
+      role1: 'FULL-STACK DEVELOPER',
+      role2: 'BACKEND SPECIALIST',
+    },
+    about: {
+      label: 'เกี่ยวกับฉัน',
+      title: 'สร้างงานที่เร็ว สะอาด และขยายระบบได้จริง',
+      text: 'ฉันเป็น Full-Stack Developer ที่เน้นงานฝั่ง Backend เป็นหลัก ชอบออกแบบระบบที่ขยายต่อได้ สร้าง API ที่มีประสิทธิภาพ และส่งมอบผลงานที่ใช้งานได้จริงในสถานการณ์จริง ฉันชอบเปลี่ยนปัญหาที่ซับซ้อนให้เป็นประสบการณ์ใช้งานที่เรียบง่าย พร้อมโครงสร้างระบบที่สะอาดและเชื่อถือได้',
+      highlightFresh: 'บัณฑิตใหม่ พร้อมเติบโต',
+      highlightImprove: 'เพิ่มประสิทธิภาพระบบ',
+      highlightProjects: 'โปรเจกต์ที่พัฒนาจริง',
+    },
+    tech: {
+      title: 'TECH STACK',
+      intro: 'เทคโนโลยีหลักที่ฉันใช้ในการสร้างระบบ Full-Stack ที่เสถียรและใช้งานได้จริง',
+      groupBackend: 'Backend',
+      groupFrontend: 'Frontend & Mobile',
+      groupData: 'Data & Search',
+      groupTools: 'Dev Tools',
+      footnote: 'พัฒนาและเรียนรู้อย่างต่อเนื่องจากโจทย์จริงของแต่ละโปรเจกต์',
+    },
+    projects: {
+      title: 'โปรเจกต์เด่น',
+      showcaseKicker: 'ตัวอย่างโปรเจกต์',
+      techStack: 'Tech Stack',
+      viewRepo: 'ดูโค้ด',
+      openRepository: 'เปิด Repository',
+      closeDetails: 'ปิดรายละเอียดโปรเจกต์',
+      viewImage: 'ดูภาพ',
+      descElasticsearch: 'โปรเจกต์ฝั่ง Backend ที่เน้นระบบค้นหา การทำดัชนี และการออกแบบคำสั่งค้นหา',
+      descSendGrid: 'โปรเจกต์เชื่อม Webhook สำหรับติดตามและประมวลผลเหตุการณ์อีเมล',
+      descAiEvent: 'Workflow ผู้ช่วย AI สำหรับการวางแผนงานและงานอัตโนมัติด้าน Productivity',
+      descMcp: 'เครื่องมืออัตโนมัติบน MCP สำหรับเชื่อมคำสั่งและ Workflow การทำงาน',
+      descRedoc: 'พอร์ทัลเอกสาร API แบบโต้ตอบได้ โดยใช้ OpenAPI และการนำทางที่รองรับหลายขนาดหน้าจอ',
+      descBotLark: 'โปรเจกต์ Lark Bot สำหรับเชื่อม GitHub จัดการอีเวนต์ และทำงานอัตโนมัติ',
+    },
+    contact: {
+      title: 'มาสร้างบางอย่างไปด้วยกัน',
+      namePlaceholder: 'ชื่อ',
+      emailPlaceholder: 'อีเมล',
+      messagePlaceholder: 'ข้อความ',
+      send: 'ส่งข้อความ',
+      sending: 'กำลังส่ง...',
+      note: 'ฟอร์มนี้จะส่งตรงไปที่ {email} และคุณสามารถกดตอบกลับไปยังอีเมลผู้ส่งได้ทันที',
+      success: 'ส่งข้อความสำเร็จแล้ว ฉันจะได้รับการแจ้งเตือนทางอีเมลในไม่ช้า',
+      error: 'ยังส่งไม่สำเร็จในตอนนี้ กรุณาลองใหม่อีกครั้งหรือส่งอีเมลโดยตรง',
+      subjectVisitor: 'ผู้เยี่ยมชม',
+    },
+  },
+};
+
+function Navbar({ onOpenResume, lang, onChangeLanguage, copy }) {
   return (
     <nav className="navbar">
       <ul className="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about-me">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#tech-stack">Tech Stack</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#home">{copy.nav.home}</a></li>
+        <li><a href="#about-me">{copy.nav.about}</a></li>
+        <li><a href="#projects">{copy.nav.projects}</a></li>
+        <li><a href="#tech-stack">{copy.nav.tech}</a></li>
+        <li><a href="#contact">{copy.nav.contact}</a></li>
+        <li className="lang-switch" aria-label={copy.nav.langLabel}>
+          <button
+            type="button"
+            className={`lang-switch-btn ${lang === 'en' ? 'active' : ''}`}
+            onClick={() => onChangeLanguage('en')}
+          >
+            ENG
+          </button>
+          <button
+            type="button"
+            className={`lang-switch-btn ${lang === 'th' ? 'active' : ''}`}
+            onClick={() => onChangeLanguage('th')}
+          >
+            TH
+          </button>
+        </li>
         <li>
           <button type="button" className="resume-btn" onClick={onOpenResume}>
-            View Resume
+            {copy.nav.resume}
           </button>
         </li>
       </ul>
@@ -23,7 +174,7 @@ function Navbar({ onOpenResume }) {
   );
 }
 
-function ResumeModal({ isOpen, onClose }) {
+function ResumeModal({ isOpen, onClose, copy }) {
   const resumePdf = resumePdfFile;
 
   if (!isOpen) {
@@ -32,19 +183,19 @@ function ResumeModal({ isOpen, onClose }) {
 
   return (
     <div className="resume-modal-overlay" onClick={onClose} role="presentation">
-      <div className="resume-modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label="Resume document">
-        <button type="button" className="resume-close-btn" onClick={onClose} aria-label="Close resume">
+      <div className="resume-modal" onClick={(e) => e.stopPropagation()} role="dialog" aria-modal="true" aria-label={copy.resume.title}>
+        <button type="button" className="resume-close-btn" onClick={onClose} aria-label={copy.resume.closeLabel}>
           x
         </button>
-        <h3 className="resume-modal-title">Resume</h3>
+        <h3 className="resume-modal-title">{copy.resume.title}</h3>
         <object data={resumePdf} type="application/pdf" className="resume-doc-frame" aria-label="Resume PDF">
           <div className="resume-missing">
-            <p>ไม่สามารถแสดงตัวอย่าง PDF ได้ในเบราว์เซอร์นี้</p>
+            <p>{copy.resume.unsupportedLine1}</p>
             <p>
-              กรุณาเปิดไฟล์โดยตรงที่{' '}
+              {copy.resume.unsupportedLine2}{' '}
               <a href={resumePdf} target="_blank" rel="noreferrer">resume.pdf</a>
             </p>
-            <p>และตรวจสอบว่าไฟล์อยู่ที่ public/resume.pdf</p>
+            <p>{copy.resume.unsupportedLine3}</p>
           </div>
         </object>
       </div>
@@ -52,13 +203,13 @@ function ResumeModal({ isOpen, onClose }) {
   );
 }
 
-function Hero() {
+function Hero({ copy }) {
   return (
     <section className="hero" id="home">
       <h1 className="hero-title" data-text="SINGHALAKKHAM">SINGHALAKKHAM</h1>
       <div className="hero-subtitle-container">
         <h2 className="hero-subtitle">
-          <span className="green">FULL-STACK DEVELOPER</span>{' // '}<span className="purple">BACKEND SPECIALIST</span>
+          <span className="green">{copy.hero.role1}</span>{' // '}<span className="purple">{copy.hero.role2}</span>
         </h2>
         <img src={characterImg} alt="Character" className="hero-character" />
       </div>
@@ -66,39 +217,38 @@ function Hero() {
   );
 }
 
-function AboutMe() {
+function AboutMe({ copy }) {
   return (
     <section className="about-me" id="about-me">
       <div className="about-me-content">
-        <p className="about-label">ABOUT ME</p>
-        <h2>BUILDING FAST, CLEAN, AND SCALABLE PRODUCTS</h2>
+        <p className="about-label">{copy.about.label}</p>
+        <h2>{copy.about.title}</h2>
         <p className="about-text">
-          I am a Full-Stack Developer with a strong focus on backend development. I enjoy designing scalable systems, building efficient APIs, and delivering products that work well in real-world scenarios.
-I like turning complex problems into simple and intuitive user experiences, supported by clean and reliable engineering behind the scenes.
+          {copy.about.text}
         </p>
       </div>
       <div className="about-me-highlights">
         <div className="about-card">
           <p className="about-card-number">FRESH</p>
-          <p className="about-card-label">Graduate Ready to Grow</p>
+          <p className="about-card-label">{copy.about.highlightFresh}</p>
         </div>
         <div className="about-card">
           <p className="about-card-number">70%</p>
-          <p className="about-card-label">System Performance Improvement</p>
+          <p className="about-card-label">{copy.about.highlightImprove}</p>
         </div>
         <div className="about-card">
           <p className="about-card-number">12+</p>
-          <p className="about-card-label">Production Projects</p>
+          <p className="about-card-label">{copy.about.highlightProjects}</p>
         </div>
       </div>
     </section>
   );
 }
 
-function TechStack() {
+function TechStack({ copy }) {
   const techGroups = [
     {
-      title: 'Backend',
+      title: copy.tech.groupBackend,
       tone: 'tone-backend',
       items: [
         { name: 'Go', logo: 'https://cdn.simpleicons.org/go/00ADD8' },
@@ -113,7 +263,7 @@ function TechStack() {
       ],
     },
     {
-      title: 'Frontend & Mobile',
+      title: copy.tech.groupFrontend,
       tone: 'tone-frontend',
       items: [
         { name: 'React', logo: 'https://cdn.simpleicons.org/react/61DAFB' },
@@ -127,7 +277,7 @@ function TechStack() {
       ],
     },
     {
-      title: 'Data & Search',
+      title: copy.tech.groupData,
       tone: 'tone-data',
       items: [
         { name: 'Elasticsearch', logo: 'https://cdn.simpleicons.org/elasticsearch/005571' },
@@ -139,7 +289,7 @@ function TechStack() {
       ],
     },
     {
-      title: 'Dev Tools',
+      title: copy.tech.groupTools,
       tone: 'tone-tools',
       items: [
         { name: 'Git', logo: 'https://cdn.simpleicons.org/git/F05032' },
@@ -155,9 +305,9 @@ function TechStack() {
 
   return (
     <section className="tech-stack" id="tech-stack">
-      <h2>TECH STACK</h2>
+      <h2>{copy.tech.title}</h2>
       <p className="tech-stack-intro">
-        Core tools and technologies I use to build reliable full-stack applications.
+        {copy.tech.intro}
       </p>
       <div className="tech-grid">
         {techGroups.map((group) => (
@@ -181,13 +331,13 @@ function TechStack() {
         ))}
       </div>
       <div className="tech-footnote">
-        Always learning and improving based on real project requirements.
+        {copy.tech.footnote}
       </div>
     </section>
   );
 }
 
-function Projects() {
+function Projects({ copy }) {
   const [selectedProject, setSelectedProject] = useState(null);
   const [activeShowcaseIndex, setActiveShowcaseIndex] = useState(0);
   const publicBase = process.env.PUBLIC_URL || '';
@@ -195,7 +345,7 @@ function Projects() {
   const projects = [
     {
       title: 'Elasticsearch',
-      description: 'Search-focused backend project with indexing and query workflow.',
+      description: copy.projects.descElasticsearch,
       tags: ['#Search', '#Elasticsearch', '#Backend'],
       stack: ['Go', 'Elasticsearch', 'REST API', 'Docker'],
       coverStyle: 1,
@@ -211,7 +361,7 @@ function Projects() {
     },
     {
       title: 'SendGrid Webhook',
-      description: 'Webhook integration project for email event processing and tracking.',
+      description: copy.projects.descSendGrid,
       tags: ['#Webhook', '#SendGrid', '#API'],
       stack: ['Node.js', 'Express', 'SendGrid API', 'Webhook'],
       coverStyle: 2,
@@ -227,7 +377,7 @@ function Projects() {
     },
     {
       title: 'AI Smart Event Assistant',
-      description: 'AI assistant workflow for event planning and productivity automation.',
+      description: copy.projects.descAiEvent,
       tags: ['#AI', '#Assistant', '#Automation'],
       stack: ['Python', 'OpenAI', 'FastAPI', 'Automation'],
       coverStyle: 3,
@@ -243,7 +393,7 @@ function Projects() {
     },
     {
       title: 'Automation MCP',
-      description: 'MCP-based automation tools for command and workflow integration.',
+      description: copy.projects.descMcp,
       tags: ['#MCP', '#Automation', '#Tooling'],
       stack: ['Node.js', 'MCP', 'CLI', 'Workflow'],
       coverStyle: 4,
@@ -258,7 +408,7 @@ function Projects() {
     },
     {
       title: 'REDOC',
-      description: 'Interactive API documentation portal with OpenAPI-based service docs and responsive navigation.',
+      description: copy.projects.descRedoc,
       tags: ['#ReDoc', '#OpenAPI', '#Documentation'],
       stack: ['HTML', 'CSS', 'OpenAPI', 'ReDoc'],
       coverStyle: 2,
@@ -272,7 +422,7 @@ function Projects() {
     },
     {
       title: 'Bot Lark GitHub',
-      description: 'Lark bot project for GitHub integration, event handling, and workflow automation.',
+      description: copy.projects.descBotLark,
       tags: ['#LarkBot', '#GitHub', '#Automation'],
       stack: ['Node.js', 'Lark Bot', 'GitHub API', 'Webhook'],
       coverStyle: 1,
@@ -377,7 +527,7 @@ function Projects() {
                   setSelectedProject(project);
                 }
               }}
-              aria-label={`Open ${project.title} showcase`}
+              aria-label={`${copy.projects.showcaseKicker} ${project.title}`}
             >
               <div className="project-preview-frame" aria-hidden="true">
                 <div className="preview-topbar">
@@ -386,7 +536,7 @@ function Projects() {
                   <span className="preview-dot"></span>
                 </div>
                 <div className="preview-body">
-                  <p className="project-stack-title">Tech Stack</p>
+                  <p className="project-stack-title">{copy.projects.techStack}</p>
                   <div className="project-stack-list preview-stack-list">
                     {project.stack.slice(0, 4).map((tech) => (
                       <span key={`${rowClass}-${idx}-${tech}`} className="project-stack-chip preview-stack-chip">
@@ -405,7 +555,7 @@ function Projects() {
                 type="button"
                 className={`project-image-placeholder project-image-trigger image-style-${project.coverStyle}`}
                 onClick={() => setSelectedProject(project)}
-                aria-label={`Open ${project.title} details`}
+                aria-label={`${project.title} ${copy.projects.showcaseKicker}`}
               >
                 {project.image ? (
                   <img
@@ -429,7 +579,7 @@ function Projects() {
                 className="project-link"
                 onClick={(event) => event.stopPropagation()}
               >
-                View Repo
+                {copy.projects.viewRepo}
               </a>
             </article>
           ))}
@@ -440,7 +590,7 @@ function Projects() {
 
   return (
     <section className="projects" id="projects">
-      <h2>FEATURED PROJECTS</h2>
+      <h2>{copy.projects.title}</h2>
       <div className="projects-stage">
         {renderRow(topRow, 'row-left')}
         {renderRow(bottomRow, 'row-right')}
@@ -448,7 +598,7 @@ function Projects() {
       {selectedProject ? (
         <div className="project-modal-overlay" onClick={() => setSelectedProject(null)} role="presentation">
           <article className="project-modal" onClick={(event) => event.stopPropagation()} role="dialog" aria-modal="true" aria-label={`${selectedProject.title} details`}>
-            <button type="button" className="project-modal-close" onClick={() => setSelectedProject(null)} aria-label="Close project details">
+            <button type="button" className="project-modal-close" onClick={() => setSelectedProject(null)} aria-label={copy.projects.closeDetails}>
               x
             </button>
             <div className="project-modal-media-wrap">
@@ -460,14 +610,14 @@ function Projects() {
                     className={`project-modal-image ${selectedProject.imageFit === 'contain' ? 'project-modal-image-contain' : ''}`}
                   />
                   {selectedProjectImages.length > 1 ? (
-                    <div className="project-modal-gallery-strip" aria-label="Project showcase gallery">
+                    <div className="project-modal-gallery-strip" aria-label={`${copy.projects.showcaseKicker} gallery`}>
                       {selectedProjectImages.map((imageSrc, imageIdx) => (
                         <button
                           key={`${selectedProject.title}-image-${imageIdx}`}
                           type="button"
                           className={`project-gallery-thumb ${imageIdx === activeShowcaseIndex ? 'active' : ''}`}
                           onClick={() => setActiveShowcaseIndex(imageIdx)}
-                          aria-label={`View image ${imageIdx + 1}`}
+                          aria-label={`${copy.projects.viewImage} ${imageIdx + 1}`}
                           aria-pressed={imageIdx === activeShowcaseIndex}
                         >
                           <img src={imageSrc} alt="" />
@@ -480,11 +630,11 @@ function Projects() {
                 <div className={`project-modal-image project-modal-fallback image-style-${selectedProject.coverStyle}`}></div>
               )}
             </div>
-            <p className="project-modal-kicker">Project Showcase</p>
+            <p className="project-modal-kicker">{copy.projects.showcaseKicker}</p>
             <h3 className="project-modal-title">{selectedProject.title}</h3>
             <p className="project-modal-description">{selectedProject.description}</p>
             <div className="project-modal-stack">
-              <p className="project-stack-title">Tech Stack</p>
+              <p className="project-stack-title">{copy.projects.techStack}</p>
               <div className="project-stack-list modal-stack-list">
                 {selectedProject.stack.map((tech) => (
                   <span key={`${selectedProject.title}-stack-${tech}`} className="project-stack-chip">
@@ -504,7 +654,7 @@ function Projects() {
               ))}
             </div>
             <a href={selectedProject.link} target="_blank" rel="noreferrer" className="project-link project-modal-link">
-              Open Repository
+              {copy.projects.openRepository}
             </a>
           </article>
         </div>
@@ -513,7 +663,7 @@ function Projects() {
   );
 }
 
-function Contact() {
+function Contact({ copy }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -549,7 +699,7 @@ function Contact() {
           email: formData.email,
           _replyto: formData.email,
           message: formData.message,
-          _subject: `Portfolio Contact from ${formData.name || 'Visitor'}`,
+          _subject: `Portfolio Contact from ${formData.name || copy.contact.subjectVisitor}`,
           _captcha: 'false',
           _template: 'box',
         }),
@@ -561,13 +711,13 @@ function Contact() {
 
       setSubmitStatus({
         type: 'success',
-        message: 'Message sent successfully. I will get your email notification shortly.',
+        message: copy.contact.success,
       });
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       setSubmitStatus({
         type: 'error',
-        message: 'Unable to send right now. Please try again or email me directly.',
+        message: copy.contact.error,
       });
     } finally {
       setIsSubmitting(false);
@@ -576,7 +726,7 @@ function Contact() {
 
   return (
     <section className="contact" id="contact">
-      <h2>LET'S BUILD SOMETHING</h2>
+      <h2>{copy.contact.title}</h2>
       <div className="contact-container">
         <form className="contact-form" onSubmit={handleSubmit}>
           <input
@@ -590,7 +740,7 @@ function Contact() {
           <input
             type="text"
             name="name"
-            placeholder="Name"
+            placeholder={copy.contact.namePlaceholder}
             value={formData.name}
             onChange={handleChange}
             required
@@ -598,23 +748,23 @@ function Contact() {
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder={copy.contact.emailPlaceholder}
             value={formData.email}
             onChange={handleChange}
             required
           />
           <textarea
             name="message"
-            placeholder="Message"
+            placeholder={copy.contact.messagePlaceholder}
             rows="4"
             value={formData.message}
             onChange={handleChange}
             required
           ></textarea>
           <button type="submit" className="contact-submit-btn" disabled={isSubmitting}>
-            {isSubmitting ? 'Sending...' : 'Send Message'}
+            {isSubmitting ? copy.contact.sending : copy.contact.send}
           </button>
-          <p className="contact-note">This form sends directly to {contactEmail}. You can reply back to the sender email they entered.</p>
+          <p className="contact-note">{copy.contact.note.replace('{email}', contactEmail)}</p>
           {submitStatus.message ? (
             <p className={`contact-status ${submitStatus.type}`} role="status" aria-live="polite">
               {submitStatus.message}
@@ -657,6 +807,8 @@ function Contact() {
 
 function App() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [lang, setLang] = useState('en');
+  const copy = translations[lang];
 
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
@@ -671,13 +823,13 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar onOpenResume={() => setIsResumeOpen(true)} />
-      <Hero />
-      <AboutMe />
-      <Projects />
-      <TechStack />
-      <Contact />
-      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
+      <Navbar onOpenResume={() => setIsResumeOpen(true)} lang={lang} onChangeLanguage={setLang} copy={copy} />
+      <Hero copy={copy} />
+      <AboutMe copy={copy} />
+      <Projects copy={copy} />
+      <TechStack copy={copy} />
+      <Contact copy={copy} />
+      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} copy={copy} />
     </div>
   );
 }
